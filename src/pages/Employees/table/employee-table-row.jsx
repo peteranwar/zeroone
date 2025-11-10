@@ -1,0 +1,92 @@
+/* eslint-disable camelcase */
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import { IconButton, MenuItem } from '@mui/material';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import CustomPopover, { usePopover } from '../../../components/custom-popover';
+import { deleteIconAction, editIconAction } from '../../../assets/icons';
+import { useBoolean } from '../../../hooks/use-boolean';
+import ConfirmDelete from '../../../components/shared/ConfirmDelete';
+
+// ----------------------------------------------------------------------
+
+export default function EmployeeTableRow({
+  row,
+  selected,
+  onDeleteRow,
+  onEditRow,
+  t,
+  hasUpdateAccess,
+  hasDeleteAccess,
+}) {
+  const { first_name, last_name, phone, email, type, role, branch } = row;
+  const popover = usePopover();
+  const confirm = useBoolean();
+
+  return (
+    <>
+      <TableRow hover selected={selected}>
+        <TableCell align='center'>{`${first_name}  ${last_name}`}</TableCell>
+
+        <TableCell align='center'>{phone}</TableCell>
+
+        <TableCell align='center'>{email}</TableCell>
+
+        <TableCell align='center'>{type}</TableCell>
+
+        <TableCell align='center'>{branch?.name}</TableCell>
+
+        <TableCell align='center'>{role?.name}</TableCell>
+
+        <TableCell align='center'>
+          <IconButton
+            onClick={popover.onOpen}
+            sx={{
+              border: '1px solid #F1F1F2',
+              borderRadius: '10px',
+              p: '2px 5px',
+            }}
+          >
+            <MoreHorizIcon sx={{ color: 'black' }} />
+          </IconButton>
+        </TableCell>
+      </TableRow>
+      <CustomPopover
+        open={popover.open}
+        onClose={popover.onClose}
+        arrow='right-top'
+        sx={{ width: 160 }}
+      >
+        <MenuItem
+          onClick={() => {
+            onEditRow();
+            popover.onClose();
+          }}
+          sx={{ color: '#00B69B' }}
+          disabled={!hasUpdateAccess}
+        >
+          {editIconAction}
+          {t('shard.edit')}
+        </MenuItem>
+
+        <MenuItem
+          onClick={() => {
+            confirm.onTrue();
+            popover.onClose();
+          }}
+          sx={{ color: 'error.main' }}
+          disabled={!hasDeleteAccess}
+        >
+          {deleteIconAction}
+          {t('shard.delete')}
+        </MenuItem>
+      </CustomPopover>
+
+      <ConfirmDelete
+        open={confirm.value}
+        onClose={confirm.onFalse}
+        onSubmitClicked={onDeleteRow}
+      />
+    </>
+  );
+}

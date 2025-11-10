@@ -1,0 +1,69 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "airbnb",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react",  "unused-imports"],
+  "rules": {
+    "prettier/prettier": [1],
+    "no-debugger": "off",
+    "no-use-before-define": 0,
+
+    // "react/jsx-filename-extension": [1, { "extensions": [".jsx"] }],
+    // "import/extensions": [
+    //   2,
+    //   "ignorePackages",
+    //   {
+    //     "ts": "never",
+    //     "tsx": "never"
+    //   }
+    // ],
+
+    "no-shadow": 0,
+
+    "import/prefer-default-export": 0,
+    "react/prop-types": 0,
+
+
+    "react/jsx-props-no-spreading": [0],
+
+    "react/react-in-jsx-scope": [0],
+
+    "unused-imports/no-unused-imports": 1,
+
+    "no-unused-vars": "warn",
+    "no-param-reassign": [0],
+
+    "react/function-component-definition": [0],
+
+    "react/destructuring-assignment": [0],
+
+    "no-plusplus": 0,
+    "no-cond-assign": 0,
+
+    "no-nested-ternary": 0,
+    "react/require-default-props": [0],
+
+    "react/no-unstable-nested-components": [0],
+
+    "no-unused-expressions": 0,
+    "no-underscore-dangle": 0
+  },
+  "settings": {
+    "import/resolver": {
+    }
+  }
+}
